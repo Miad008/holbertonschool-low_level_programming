@@ -1,6 +1,2 @@
 #!/bin/bash
-if [ -z "$CFILE" ]; then
-  echo "No C file specified"
-  exit 1
-fi
 gcc -E "$CFILE" > "${CFILE%.c}.i"
