@@ -1,26 +1,19 @@
-#ifndef DOG_H
-#define DOG_H
+#include <stdlib.h>
+#include "dog.h"
 
 /**
- * struct dog - Structure representing a dog
- * @name: Name of the dog
- * @age: Age of the dog
- * @owner: Owner of the dog
- */
-struct dog
+* free_dog - Frees memory allocated for a dog_t structure
+* @d: Pointer to the dog_t structure to free
+*/
+void free_dog(dog_t *d)
 {
-char *name;
-float age;
-char *owner;
-};
+if (d == NULL)
+return;
 
 
-typedef struct dog dog_t;
+free(d->name);
+free(d->owner);
 
 
-void init_dog(struct dog *d, char *name, float age, char *owner);
-void print_dog(struct dog *d);
-dog_t *new_dog(char *name, float age, char *owner);
-void free_dog(dog_t *d);
-
-#endif /* DOG_H */
+free(d);
+}
