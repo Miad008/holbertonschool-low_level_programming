@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "dog.h"
@@ -8,34 +7,35 @@
  * @name: name of the dog
  * @age: age of the dog
  * @owner: owner of the dog
- * Return: pointer to the new dog_t structure, or NULL if failure
+ *
+ * Return: pointer to the new dog (dog_t), or NULL if it fails
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-dog_t *dog;
+dog_t *new_dog;
 
-dog = malloc(sizeof(dog_t));
-if (dog == NULL)
+new_dog = malloc(sizeof(dog_t));
+if (!new_dog)
 return (NULL);
 
-dog->name = malloc(strlen(name) + 1);
-if (dog->name == NULL)
+new_dog->name = malloc(sizeof(char) * (strlen(name) + 1));
+if (!new_dog->name)
 {
-free(dog);
+free(new_dog);
 return (NULL);
 }
-strcpy(dog->name, name);
 
-dog->owner = malloc(strlen(owner) + 1);
-if (dog->owner == NULL)
+new_dog->owner = malloc(sizeof(char) * (strlen(owner) + 1));
+if (!new_dog->owner)
 {
-free(dog->name);
-free(dog);
+free(new_dog->name);
+free(new_dog);
 return (NULL);
 }
-strcpy(dog->owner, owner);
 
-dog->age = age;
+strcpy(new_dog->name, name);
+new_dog->age = age;
+strcpy(new_dog->owner, owner);
 
-return (dog);
+return (new_dog);
 }
