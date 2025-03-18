@@ -14,33 +14,32 @@ char *str, *separator = "";
 const char valid_types[] = "cifs";
 
 va_start(args, format);
-while (format && format[i])
+if (format)
+{
+while (format[i])
 {
 j = 0;
-while (valid_types[j])
-{
-if (format[i] == valid_types[j])
+while (valid_types[j] && valid_types[j] != format[i])
+j++;
+if (valid_types[j])
 {
 printf("%s", separator);
 separator = ", ";
-break;
-}
-j++;
-}
 if (format[i] == 'c')
 printf("%c", va_arg(args, int));
-else if (format[i] == 'i')
+if (format[i] == 'i')
 printf("%d", va_arg(args, int));
-else if (format[i] == 'f')
+if (format[i] == 'f')
 printf("%f", va_arg(args, double));
-else if (format[i] == 's')
+if (format[i] == 's')
 {
 str = va_arg(args, char *);
-if (!str)
-str = "(nil)";
+str = str ? str : "(nil)";
 printf("%s", str);
 }
+}
 i++;
+}
 }
 va_end(args);
 printf("\n");
